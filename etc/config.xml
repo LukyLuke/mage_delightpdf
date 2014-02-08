@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Delight_Delightpdf>
+			<version>0.2.5</version>
+		</Delight_Delightpdf>
+	</modules>
+	
+	<global>
+		<models>
+			<delightpdf>
+				<class>Delight_Delightpdf_Model</class>
+				<resourceModel>delightpdf_mysql4</resourceModel>
+			</delightpdf>
+			
+			<delightpdf_mysql4>
+				<class>Delight_Delightpdf_Model_Mysql4</class>
+				<entities>
+					<page>
+						<table>delightpdf_store_config</table>
+					</page>
+				</entities>
+			</delightpdf_mysql4>
+			
+			<sales>
+				<rewrite>
+					<order>Delight_Delightpdf_Model_Order</order>
+					
+					<order_invoice>Delight_Delightpdf_Model_Order_Invoice</order_invoice>
+					<order_shipment>Delight_Delightpdf_Model_Order_Shipment</order_shipment>
+					<order_creditmemo>Delight_Delightpdf_Model_Order_Creditmemo</order_creditmemo>
+					
+					<order_pdf_invoice>Delight_Delightpdf_Model_Order_Pdf_Invoice</order_pdf_invoice>
+					<order_pdf_shipment>Delight_Delightpdf_Model_Order_Pdf_Shipment</order_pdf_shipment>
+					<order_pdf_creditmemo>Delight_Delightpdf_Model_Order_Pdf_Creditmemo</order_pdf_creditmemo>
+				</rewrite>
+			</sales>
+
+			<core>
+				<rewrite>
+					<email_template_mailer>Delight_Delightpdf_Model_Core_Mailer</email_template_mailer>
+				</rewrite>
+			</core>
+
+			<delightserial>
+				<rewrite>
+					<product_pdf_serial>Delight_Delightpdf_Model_Order_Pdf_Serial</product_pdf_serial>
+				</rewrite>
+			</delightserial>
+		</models>
+		
+		<resources>
+			<delightpdf_setup>
+				<setup>
+					<module>Delight_Delightpdf</module>
+					<class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</delightpdf_setup>
+			<delightpdf_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</delightpdf_write>
+			<delightpdf_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</delightpdf_read>
+		</resources>
+		
+		<blocks>
+			<delightpdf>
+				<class>Delight_Delightpdf_Block</class>
+			</delightpdf>
+		</blocks>
+		
+		<helpers>
+			<delightpdf>
+				<class>Delight_Delightpdf_Helper</class>
+			</delightpdf>
+		</helpers>
+		
+	</global>
+
+	<admin>
+		<routers>
+			<delightpdf>
+				<use>admin</use>
+				<args>
+					<module>Delight_Delightpdf</module>
+					<frontName>delightpdf</frontName>
+				</args>
+			</delightpdf>
+		</routers>
+	</admin>
+
+	<adminhtml>
+		<translate>
+			<modules>
+				<Delight_Delightpdf>
+					<files>
+						<default>Delight_Delightpdf.csv</default>
+					</files>
+				</Delight_Delightpdf>
+			</modules>
+		</translate>
+
+		<layout>
+			<updates>
+				<delightpdf>
+					<file>delightpdf.xml</file>
+				</delightpdf>
+			</updates>
+		</layout>
+		
+		<menu>
+			<system>
+				<children>
+					<delightpdf_adminform translate="title" module="delightpdf">
+						<title>Delight PDF-Attachments</title>
+						<action>delightpdf/adminhtml_editor</action>
+					</delightpdf_adminform>
+				</children>
+			</system>
+		</menu>
+		
+		<acl>
+			<resources>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<delightpdf translate="title" module="delightpdf">
+											<title>Delight PDF-Attachments</title>
+										</delightpdf>
+									</children>
+								</config>
+								<delightpdf_adminform translate="title" module="delightpdf">
+									<title>Delight PDF-Attachments</title>
+								</delightpdf_adminform>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		
+		<events>
+			<store_delete_before>
+				<observers>
+					<delightpdf_observer>
+						<type>singelton</type>
+						<class>delightpdf/observer</class>
+						<method>storeDeleteBefore</method>
+					</delightpdf_observer>
+				</observers>
+			</store_delete_before>
+		</events>
+		
+	</adminhtml>
+
+	<frontend>
+		<routers>
+			<delightpdf>
+				<use>standard</use>
+				<args>
+					<module>Delight_Delightpdf</module>
+					<frontName>delightpdf</frontName>
+				</args>
+			</delightpdf>
+		</routers>
+
+		<translate>
+			<modules>
+				<Delight_Delightpdf>
+					<files>
+						<default>Delight_Delightpdf.csv</default>
+					</files>
+				</Delight_Delightpdf>
+			</modules>
+		</translate>
+
+		<layout>
+			<updates>
+				<delightpdf>
+					<file>delightpdf.xml</file>
+				</delightpdf>
+			</updates>
+		</layout>
+
+	</frontend>
+
+</config>
